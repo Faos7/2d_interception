@@ -1,4 +1,4 @@
-package primitives2d;
+package main.primitives2d;
 
 /**
  * Created by faos7 on 17.03.17.
@@ -35,11 +35,6 @@ public class Point_2D {
     public boolean equals( Point_2D point_2D) {
         return Double.compare(point_2D.getX(), this.getX()) == 0 &&
                 Double.compare(point_2D.getY(), this.getY()) == 0;
-    }
-
-    public double distanceTo(Point_2D point_2D){
-        return Math.sqrt(((this.getX()-point_2D.getX())*(this.getX() - point_2D.getX())) +
-                        ((this.getY()-point_2D.getY()) * (this.getY() - point_2D.getY())));
     }
 
 

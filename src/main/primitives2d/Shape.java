@@ -1,10 +1,9 @@
-package primitives2d;
+package main.primitives2d;
 
 /**
  * Created by faos7 on 17.03.17.
  */
 public class Shape {
-    private Point_2D point_2D;
     private boolean created = false;
     private boolean isTriangle = false;
     private boolean isSquare = false;
@@ -14,17 +13,6 @@ public class Shape {
         created = true;
     }
 
-    public Shape(Point_2D point_2D) {
-        this.point_2D = point_2D;
-    }
-
-    public Point_2D getPoint_2D() {
-        return point_2D;
-    }
-
-    public void setPoint_2D(Point_2D point_2D) {
-        this.point_2D = point_2D;
-    }
 
     public boolean isCreated() {
         return created;
@@ -60,9 +48,8 @@ public class Shape {
 
     @Override
     public String toString() {
-        return "primitives2d.Shape{" +
-                "" + point_2D +
+        return "Shape{" +
+                "created=" + created +
                 '}';
     }
-
 }

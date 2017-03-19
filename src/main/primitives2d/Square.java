@@ -1,4 +1,4 @@
-package primitives2d;
+package main.primitives2d;
 
 /**
  * Created by faos7 on 17.03.17.
@@ -56,9 +56,22 @@ public class Square extends Shape{
         this.ru = ru;
     }
 
+    public boolean getSuperCreated(){
+        return super.isCreated();
+    }
+    public boolean getSuperTriangle(){
+        return super.isTriangle();
+    }
+    public boolean getSuperSquare(){
+        return super.isSquare();
+    }
+    public boolean getSuperCircle(){
+        return super.isCircle();
+    }
+
     @Override
     public String toString() {
-        return "primitives2d.Square{" +
+        return "Square{" +
                 "ld=" + ld +
                 ", lu=" + lu +
                 ", rd=" + rd +

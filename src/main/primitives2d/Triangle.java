@@ -1,4 +1,4 @@
-package primitives2d;
+package main.primitives2d;
 
 /**
  * Created by faos7 on 17.03.17.
@@ -42,9 +42,23 @@ public class Triangle extends Shape {
         this.c = c;
     }
 
+
+    public boolean getSuperCreated(){
+        return super.isCreated();
+    }
+    public boolean getSuperTriangle(){
+        return super.isTriangle();
+    }
+    public boolean getSuperSquare(){
+        return super.isSquare();
+    }
+    public boolean getSuperCircle(){
+        return super.isCircle();
+    }
+
     @Override
     public String toString() {
-        return "primitives2d.Triangle{" +
+        return "Triangle{" +
                 "a=" + a +
                 ", b=" + b +
                 ", c=" + c +

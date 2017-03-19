@@ -1,4 +1,4 @@
-package primitives2d;
+package main.primitives2d;
 
 /**
  * Created by faos7 on 17.03.17.
@@ -40,17 +40,22 @@ public class Circle extends Shape{
         this.radius = radius;
     }
 
-
-    public boolean equals(Circle circle) {
-        boolean x = (Double.compare(this.getCenter().getX(), circle.getCenter().getX()) == 0);
-        boolean y = (Double.compare(this.getCenter().getY(), circle.getCenter().getY()) == 0);
-        boolean r = Double.compare(circle.getRadius(), getRadius()) == 0;
-        return  x&&y&&r;
+    public boolean getSuperCreated(){
+        return super.isCreated();
+    }
+    public boolean getSuperTriangle(){
+        return super.isTriangle();
+    }
+    public boolean getSuperSquare(){
+        return super.isSquare();
+    }
+    public boolean getSuperCircle(){
+        return super.isCircle();
     }
 
     @Override
     public String toString() {
-        return "primitives2d.Circle{" +
+        return "Circle{" +
                 "center=" + center +
                 ", radius=" + radius +
                 '}';

@@ -1,4 +1,4 @@
-package primitives2d;
+package main.primitives2d;
 
 /**
  * Created by faos7 on 18.03.17.
@@ -40,5 +40,14 @@ public class Line {
 
     public void setC(double c) {
         C = c;
+    }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "A=" + A +
+                ", B=" + B +
+                ", C=" + C +
+                '}';
     }
 }
