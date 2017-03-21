@@ -44,10 +44,9 @@ public class Line {
 
     @Override
     public String toString() {
-        return "Line{" +
-                "A=" + A +
-                ", B=" + B +
-                ", C=" + C +
-                '}';
+        return "Line{ " + A +"x " +
+                 B + "y " +
+                 C +
+                " }";
     }
 }

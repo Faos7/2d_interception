@@ -68,32 +68,6 @@ public class Math2D {
         outPrint(string);
     }
 
-    private boolean realEq(double a, double b){
-        boolean res = Math.abs(a-b) <= EPS;
-        return res;
-    }
-    private boolean realMoreEq(double a, double b){
-        boolean res = a - b >= EPS;
-        return res;
-    }
-
-    private boolean eqPoint(Point_2D p1, Point_2D p2){
-        boolean res = realEq(p1.getX(), p2.getX()) && realEq(p1.getY(), p2.getY());
-        return res;
-    }
-    private boolean atOtres(Point_2D p1, Point_2D p2, Point_2D p){
-        boolean res = false;
-        if (eqPoint(p1,p2)){
-            res = eqPoint(p1, p);
-        }else {
-            boolean b1 = realEq((p.getX() - p1.getX())*(p2.getY() - p1.getY()) -
-                    (p.getY() - p1.getY())*(p2.getX() - p1.getX()), 0);
-            boolean b2 = (realMoreEq(p.getX(),p1.getX()) && realMoreEq(p2.getX(), p.getX())) ||
-                    (realMoreEq(p.getX(), p2.getX()) && realMoreEq(p1.getX(),p.getX()));
-            res = b1 && b2;
-        }
-        return res;
-    }
 
     boolean onSegment(Point_2D p, Point_2D r, Point_2D q)
     {
@@ -149,7 +123,7 @@ public class Math2D {
         String[] res = {"*", "*"};
 
         double dx = circle1.getCenter().getX() - circle2.getCenter().getX();
-        double dy = circle1.getCenter().getY()- circle2.getCenter().getY();
+        double dy = circle1.getCenter().getY() - circle2.getCenter().getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
 
         // See how many solutions there are.
@@ -190,7 +164,7 @@ public class Math2D {
                     (cy2 + h * (circle2.getCenter().getX() - circle1.getCenter().getX()) / dist));
 
             // See if we have 1 or 2 solutions.
-            if (dist == circle1.getRadius() + circle2.getRadius()) {
+            if (dist == Math.abs(circle1.getRadius() - circle2.getRadius())){
                 res[0] = p1.toString();
                 return res;}
 
@@ -224,10 +198,7 @@ public class Math2D {
             // One solution.
             t = -B / (2 * A);
             Point_2D p1 = new Point_2D(a.getX() + t * dx, a.getY() + t *dy);
-            if ((((Double.compare(p1.getX(), a.getX()) <= 0 )&&(Double.compare(p1.getX(), b.getX()) >= 0)) ||
-                    ((Double.compare(p1.getX(), a.getX()) >=0) && (Double.compare(p1.getX(), b.getX()) <=0))) &&
-                    (((Double.compare(p1.getY(), a.getY() )<= 0)&&(Double.compare(p1.getY(), b.getY()) >=0)) ||
-                    (Double.compare(p1.getY(), a.getY()) >=0) && (Double.compare(p1.getY(), b.getY())  <=0)))
+            if (onSegment(a,b, p1) || onSegment(b,a,p1))
             res[0] = p1.toString();
 
             return res;
@@ -238,16 +209,10 @@ public class Math2D {
             Point_2D p1 = new Point_2D(a.getX() + t * dx, a.getY() + t * dy);
             t = (float)((-B - Math.sqrt(det)) / (2 * A));
             Point_2D p2 = new Point_2D(a.getX() + t * dx, a.getY() + t * dy);
-            if ((((Double.compare(p1.getX(), a.getX()) <= 0 )&&(Double.compare(p1.getX(), b.getX()) >= 0)) ||
-                    ((Double.compare(p1.getX(), a.getX()) >=0) && (Double.compare(p1.getX(), b.getX()) <=0))) &&
-                    (((Double.compare(p1.getY(), a.getY() )<= 0)&&(Double.compare(p1.getY(), b.getY()) >=0)) ||
-                            (Double.compare(p1.getY(), a.getY()) >=0) && (Double.compare(p1.getY(), b.getY())  <=0)))
-            res[0] = p1.toString();
-            if ((((Double.compare(p2.getX(), a.getX()) <= 0 )&&(Double.compare(p2.getX(), b.getX()) >= 0)) ||
-                    ((Double.compare(p2.getX(), a.getX()) >=0) && (Double.compare(p2.getX(), b.getX()) <=0))) &&
-                    (((Double.compare(p2.getY(), a.getY() )<= 0)&&(Double.compare(p2.getY(), b.getY()) >=0)) ||
-                            (Double.compare(p2.getY(), a.getY()) >=0) && (Double.compare(p2.getY(), b.getY())  <=0)))
-            res[1] = p2.toString();
+            if (onSegment(a,b, p1) || onSegment(b,a,p1))
+                res[0] = p1.toString();
+            if (onSegment(a,b, p2) || onSegment(b,a,p2))
+                res[1] = p2.toString();
 
             return res;
         }
@@ -257,12 +222,47 @@ public class Math2D {
         Line l1 = new Line(A, B);
         Line l2 = new Line(C, D);
 
+        if (!(Double.compare(l1.getA(), 0) == 0)){
+            double da = l1.getA();
+            double db = l1.getB();
+            double dc = l1.getC();
+            l1.setA(1);
+            if (!(Double.compare(db, 0) == 0)){
+            l1.setB(db/da);}
+            if (!(Double.compare(dc, 0) == 0)){
+            l1.setC(dc/da);}
+        }else if (!(Double.compare(l1.getB(), 0) == 0)){
+            double db = l1.getB();
+            double dc = l1.getC();
+            l1.setB(1);
+            if (!(Double.compare(dc, 0) == 0))
+            l1.setC(dc/db);
+        }
+
+        if (!(Double.compare(l2.getA(),0) == 0)){
+            double da = l2.getA();
+            double db = l2.getB();
+            double dc = l2.getC();
+            l2.setA(1);
+            if (!(Double.compare(db,0) == 0)){
+            l2.setB(db/da);}
+            if (!(Double.compare(dc,0) == 0))
+            l2.setC(dc/da);
+        }
+        else if (!(Double.compare(l2.getB(), 0) == 0)){
+            double db = l2.getB();
+            double dc = l2.getC();
+            l2.setB(1);
+            if (!(Double.compare(dc, 0) == 0)){
+            l2.setC(dc/db);}
+        }
+
         if ((l1.getA() == - l2.getA()) &&(l1.getB() == -l2.getB()) && (l1.getC() == - l2.getC())){
             l2 = l1;
         }
-
         if ((Double.compare(l1.getA(), l2.getA()) == 0)&&(Double.compare(l1.getB(), l2.getB()) == 0)
                 && (Double.compare(l1.getC(),l2.getC())) == 0){
+
             return linesOverlap(A,B,C,D);
         }
 
@@ -395,7 +395,6 @@ public class Math2D {
         list.add(interceptLines(t.getA(), t.getC(), sq.getLd(), sq.getLu()));
         list.add(interceptLines(t.getA(), t.getC(), sq.getRu(), sq.getRd()));
         list.add(interceptLines(t.getA(), t.getC(), sq.getLu(), sq.getRu()));
-
 
         ArrayList<String> list1 = new ArrayList<String>();
         for (String s: list) {

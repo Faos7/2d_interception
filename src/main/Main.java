@@ -44,9 +44,21 @@ against the expected output data. */
         Math2D math2D = new Math2D(shape1, shape2);
         math2D.entryPoint();
 
+
+/*
+        Point_2D ps1 = new Point_2D(1,1);
+        Point_2D ps2 = new Point_2D(3,3);
+        Point_2D pt1 = new Point_2D(0,0);
+        Point_2D pt2 = new Point_2D(4,0);
+        Point_2D pt3 = new Point_2D(2,4);
+
+        Shape shape1 = new Triangle(pt1, pt2, pt3);
+        Shape shape2 = new Square(ps1,ps2);
+
+        Math2D math2D = new Math2D(shape1, shape2);
+        String s = math2D.CompareTriangleAndSquare((Triangle) shape1,(Square) shape2);
+        System.out.println(s);
+        */
+
     }
-
-
-
-
 }
